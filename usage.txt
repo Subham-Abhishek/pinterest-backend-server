@@ -1,0 +1,93 @@
+posts
+get all posts{ get "/posts"} 
+post any  post{ post "/posts"} // user authentication token required
+patch any  post{ patch "/posts/:id"} // user authentication token required
+delete any  post{ delete "/posts/:id"} // user authentication token required
+get all posts with these tags{ get "/posts/tags"} 
+
+like
+post likes{
+    if the user already liked that I will delete that like and send {like:false}
+    else{
+        I will create a new like and send {like:true}
+    }
+send post_id or parentCommentId in json with the parentType as comment or post
+} //user authentication token required
+
+get likes for any post{
+send in query params as "/likes?post_id= ${post_id}" 
+}
+get likes for any comment{
+send in query params as "/likes?parentCommentId= ${commentId}"    
+}
+
+
+comment
+post comment{
+   
+send post_id or parentCommentId in json with the parentType as comment or post
+} //user authentication token required
+
+get comments for any post{
+send in query params as "/comments?post_id= ${post_id}" 
+}
+get comments for any comment{
+send in query params as "/comment?parentCommentId= ${commentId}"    
+}
+
+
+follows 
+
+post follows{
+    send user_id and followed_user_id
+    if the user already followed the followed_user_id I wiill do the unfollow(delete the pair in collection) and send {follow:false}
+    else if the user is following the followed_user_id for the first time I will create a new document with the pair and send {follow:true}
+}// user authentication token required
+get follows{
+    if you want the followdPeople for a user send the query as "/follows?user_id="${user_id}"&follwedPeople=1
+
+    if you want the followers of a user send the query as "/follow?user_id="${user_id}"&followedByUser=1"
+    data will be an array
+}
+
+//saved posts
+/savedposts post{
+ send post id which he want to save as {"post_id":"someid"} in json
+}//user authentication token required
+savedposts get{
+    I will take user information from the token and send you what he saved in savedposts
+}// user authentication token required
+savedposts delete{
+    send in the id of the savedposts which he want to delete 
+    I will send you {message:"succesfully deleted"}
+}// user authentication token required
+savedposts get single savedpost{
+    send in the id of the savedposts 
+    I will send you the post
+}//user authentication token required
+
+
+//users
+users post {dont use this method post user only through the registraton route}
+users get {
+    I will send you all the users in db without giving the password feild
+}
+users get single user{
+    /users/:id
+    I will send you all the user with id in db without giving the password feild
+}
+users patch{
+    //users/:id
+    I will take the user id from authentication token and patch the user with re.body u sent and send updated user
+}// user authentication token required
+users delete{
+    //users/:id
+    I will take the user id from authentication token and delete the user and send {message:"succesfully deleted"}
+}// user authentication token required
+
+//registraton {
+    send req.body as user details I will see wheather the user is in our database or not first if he is I will just login him with the password he sent or if he is not there in our database I will register him and send the token 
+}
+//login{
+    I will compare the email and password of the user and send you the token
+}

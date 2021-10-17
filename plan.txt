@@ -1,0 +1,58 @@
+//user collection
+name,
+email,
+password,
+bio,
+profile_photo_url,
+
+//posts 
+user_id from user collection,
+photo_url=urls.regular,
+goodquality_url=urls.full
+tags,
+description=description||alt_description,
+
+//saved posts
+user_id from user collection, 
+post_id from post collection,
+
+//follow{
+user_id from user collection,
+followed_user_Id from the user collection,
+//when the query is the followers of any user 
+we will search for the followed_user_Id===user_idTheysent in the collection and  give them the  documents. In that documents, they will take the user_id from every document that's the list of followers for a user
+
+//when the query is who user followed we will search for the user_id===user_idTheysent in the collection and give them the documents. In that documents, they will take the followed_user_Id from every document that's the list of the users a user followed.
+ 
+}
+
+
+//likes
+user_id from user collection,
+post_id from post collection,
+parentCommentId from comment collection,
+parentType should be post or comment,
+
+//commments
+user_id from user collection,
+body ,
+post_id from post collection,
+parentCommentId from comment collection,
+parentType should be post or comment,
+
+
+//activity
+post_id from post collection,
+parentCommentId from comment collection,
+parentType should be post or comment,
+likesCount,
+
+
+//json data line 3035 query cars
+//json data line 5404 query movies
+//json data line 6755 query landscapes
+//json data line 9135 query iphone
+//json data line 11127 query palaces
+//json data line 12235 query nature
+//json data line 15859 query skyscrapers
+//json data line 17249 query holi
