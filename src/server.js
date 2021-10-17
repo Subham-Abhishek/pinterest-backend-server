@@ -33,7 +33,7 @@ app.use("/savedposts",savedpostsController)
 app.use("/gauth",gauthController) 
 
 function start(){
-    app.listen(8000,async () => {
+    app.listen(process.env.PORT || 8000,async () => {
         await connect()
         console.log("listening on port 8000 pinterst")
     })
